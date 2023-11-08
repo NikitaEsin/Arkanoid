@@ -15,3 +15,45 @@ canvas {
   margin: 20px auto;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
+
+#losePopup,
+#winPopup {
+  display: flex;
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+  z-index: 1;
+  border-radius: 10px;
+  text-align: center;
+}
+
+#losePopup h2,
+#winPopup h2 {
+  color: #ff0000;
+}
+
+#losePopup button,
+#winPopup button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+#losePopup button:hover,
+#winPopup button:hover {
+  background-color: #ee3737;
+}
+
+#winPopup button {
+  background-color: #2ecc71;
+  color: #fff;
+}

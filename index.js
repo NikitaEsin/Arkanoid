@@ -10,6 +10,7 @@ let x = canvas.width / 2;
 let y = canvas.height - 30;
 let dx = 2;
 let dy = -2;
+let score = 0;
 
 const brickRowCount = 5;
 const brickColumnCount = 8;
@@ -101,9 +102,32 @@ function collisionDetection() {
       ) {
         dy = -dy;
         b.status = 0;
+        score += getScoreByColor(b.color);
+        document.getElementById("score").innerText = score;
       }
     }
   }
+}
+
+function getScoreByColor(color) {
+  switch (color) {
+    case "blue": return 1;
+    case "red": return 2;
+    case "green": return 3;
+    default: return 0;
+  }
+}
+
+function showLosePopup() {
+  const losePopup = document.getElementById("losePopup");
+  losePopup.style.display = "flex";
+  document.getElementById("finalScore").innerText = score;
+}
+
+function showWinPopup() {
+  const winPopup = document.getElementById("winPopup");
+  winPopup.style.display = "flex";
+  document.getElementById("finalScoreWin").innerText = score;
 }
 
 function draw() {
@@ -135,10 +159,64 @@ function draw() {
     paddleX -= 7;
   }
 
+  let bricksLeft = 0;
+  for (let col = 0; col < brickColumnCount; col++) {
+    for (let row = 0; row < brickRowCount; row++) {
+      if (bricks[col][row].status === 1) {
+        bricksLeft++;
+      }
+    }
+  }
+
+  if (bricksLeft === 0) {
+    // All bricks are destroyed - Player Wins
+    showWinPopup();
+    clearInterval(gameInterval);
+  }
+
+  if (y + dy > canvas.height - ballRadius) {
+    showLosePopup();
+    clearInterval(gameInterval);
+  }
+
   x += dx;
   y += dy;
 
   requestAnimationFrame(draw);
+}
+
+// Function to start the game
+function startGame() {
+    score = 0;
+    document.getElementById("score").innerText = "Score: " + score;
+    showLeaderboard(); // Display leaderboard even if there are no scores
+    gameInterval = setInterval(draw, 10);
+  }
+
+  // Function to start the game again
+  function startAgain() {
+    // Reset ball and paddle position
+    x = canvas.width / 2;
+    y = canvas.height - 30;
+    paddleX = (canvas.width - paddleWidth) / 2;
+
+    // Reset ball speed and direction
+    dx = 2;
+    dy = -2;
+
+    // Reset brick statuses
+    for (let col = 0; col < brickColumnCount; col++) {
+      for (let row = 0; row < brickRowCount; row++) {
+        bricks[col][row].status = 1;
+      }
+    }
+
+    // Hide popups
+    document.getElementById("losePopup").style.display = "none";
+    document.getElementById("winPopup").style.display = "none";
+
+  // Restart the game loop
+  startGame();
 }
 
 draw();

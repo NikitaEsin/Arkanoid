@@ -9,6 +9,16 @@
   </head>
   <body>
     <canvas id="canvas" width="730" height="550"></canvas>
+    <div id="losePopup">
+      <h2>You Lose!</h2>
+      <p>Your final score: <span id="score"></span></p>
+      <button onclick="startAgain()">Try Again</button>
+    </div>
+    <div id="winPopup">
+      <h2>Congratulations! You Win!</h2>
+      <p>Your final score: <span id="score"></span></p>
+      <button onclick="startAgain()">Play Again</button>
+    </div>
     <script src="./index.js"></script>
   </body>
 </html>
