@@ -211,9 +211,9 @@ const canvas = document.getElementById("canvas");
         }
 
         if (rightPressed && paddleX < canvas.width - paddleWidth) {
-          paddleX += 1;
+          paddleX += 2;
         } else if (leftPressed && paddleX > 0) {
-          paddleX -= 1;
+          paddleX -= 2;
         }
 
         let bricksLeft = 0;
@@ -246,7 +246,7 @@ const canvas = document.getElementById("canvas");
         if (playerName.trim() !== "") {
           score = 0;
           document.getElementById("finalScore").innerText = score;
-          gameInterval = setInterval(draw, 10);
+          gameInterval = setInterval(draw, 1000);
           document.getElementById("namePopup").style.display = "none";
           dx = 1;
           dy = -1;
