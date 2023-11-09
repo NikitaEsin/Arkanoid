@@ -6,7 +6,7 @@ body {
   height: 100vh;
   background-color: #fb9e9e;
 }
-  
+
 canvas {
   border: 3px solid #2b2a2a;
   background-color: #fff29c;
@@ -17,8 +17,8 @@ canvas {
 }
 
 #losePopup,
-#winPopup {
-  display: flex;
+#winPopup,
+#namePopup {
   display: none;
   flex-direction: column;
   position: absolute;
@@ -31,12 +31,14 @@ canvas {
 }
 
 #losePopup h2,
-#winPopup h2 {
+#winPopup h2,
+#namePopup h2 {
   color: #ff0000;
 }
 
 #losePopup button,
-#winPopup button {
+#winPopup button,
+#namePopup button {
   padding: 10px 20px;
   font-size: 16px;
   background-color: #3498db;
@@ -49,7 +51,8 @@ canvas {
 }
 
 #losePopup button:hover,
-#winPopup button:hover {
+#winPopup button:hover,
+#namePopup button:hover {
   background-color: #ee3737;
 }
 
