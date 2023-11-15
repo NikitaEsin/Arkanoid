@@ -2,32 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Arkanoid</title>
-    <link rel="stylesheet" href="./index.css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Arkanoid PIXI</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.10/pixi.min.js"></script>
+    <link rel="stylesheet" href="./src/index.css" />
   </head>
   <body>
-    <canvas id="canvas" width="730" height="550"></canvas>
-    <div id="losePopup">
-      <h2>You Lose!</h2>
-      <p>Your final score: <span id="finalScore"></span></p>
-      <h3>Top 5 Scores</h3>
-      <ul id="scoreList"></ul>
-      <button onclick="startAgain()">Try Again</button>
-    </div>
-    <div id="winPopup">
-      <h2>Congratulations! You Win!</h2>
-      <p>Your final score: <span id="finalScoreWin"></span></p>
-      <h3>Top 5 Scores</h3>
-      <ul id="scoreListWin"></ul>
-      <button onclick="startAgain()">Play Again</button>
-    </div>
-    <div id="namePopup">
-      <h2>Enter Your Name</h2>
-      <input type="text" id="playerName" />
-      <button onclick="startGame()">Start Game</button>
-    </div>
-    <script src="./index.js"></script>
+    <script type="module" src="./src/main.ts"></script>
   </body>
 </html>
