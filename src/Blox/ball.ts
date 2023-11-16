@@ -1,12 +1,17 @@
 import * as PIXI from "pixi.js";
 import { Paddle } from "./paddle";
+import { Brick } from "./brick";
+import { GameInterface } from "../Blox/game";
 
+// Ball class
 export class Ball {
   private graphics: PIXI.Graphics;
   private speedX: number = 4;
-  private speedY: number = 4;
+  private speedY: number = -4;
+  private game: GameInterface;
 
-  constructor(private main: PIXI.Application) {
+  constructor(private main: PIXI.Application, game: GameInterface) {
+    this.game = game;
     this.graphics = new PIXI.Graphics();
     this.graphics.beginFill('silver');
     this.graphics.drawCircle(0, 0, 15);
@@ -17,28 +22,37 @@ export class Ball {
     main.stage.addChild(this.graphics);
   }
 
+  // Move the ball
   public move(): void {
     this.graphics.x += this.speedX;
     this.graphics.y += this.speedY;
 
-    if (this.graphics.x + this.graphics.width >= this.main.screen.width || this.graphics.x <= 0) {
+    // Bounce x-axis
+    if (
+      this.graphics.x + this.graphics.width >= this.main.screen.width ||
+      this.graphics.x <= 0
+    ) {
       this.speedX = -this.speedX;
     }
 
-    if (this.graphics.y <= 0 || this.graphics.y + this.graphics.height >= this.main.screen.height) {
+    // Bounce y-axis
+    if (this.graphics.y <= 0) {
       this.speedY = -this.speedY;
     }
 
+    // Reset game if ball reaches floor
     if (this.graphics.y + this.graphics.height >= this.main.screen.height) {
-      this.reset();
+      this.game.reset();
     }
   }
 
+  // Invert Y speed
   public bounce(): void {
     this.speedY = -this.speedY;
   }
 
-  public checkTap(paddle: Paddle): boolean {
+  // Check if paddle is touched
+  public checkPaddleTap(paddle: Paddle): boolean {
     const ballBounds = this.graphics.getBounds();
     const paddleBounds = paddle.getBounds();
     return (
@@ -48,10 +62,23 @@ export class Ball {
     );
   }
 
-  private reset(): void {
+  // Check brick touch
+  public checkBrickTap(brick: Brick): boolean {
+    const ballBounds = this.graphics.getBounds();
+    const brickBounds = brick.getBounds();
+    return (
+      ballBounds.x + ballBounds.width >= brickBounds.x &&
+      ballBounds.x <= brickBounds.x + brickBounds.width &&
+      ballBounds.y + ballBounds.height >= brickBounds.y &&
+      ballBounds.y <= brickBounds.y + brickBounds.height
+    );
+  }
+
+  // Reset ball
+  public reset(): void {
     this.graphics.x = this.main.screen.width / 2;
     this.graphics.y = this.main.screen.height - 60;
     this.speedX = 4;
-    this.speedY = 4;
+    this.speedY = -4;
   }
 }
