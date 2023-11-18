@@ -16,3 +16,64 @@ canvas {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
+
+.container {
+  display: flex;
+  border: #2b2a2a 2px solid;
+  background-color: aliceblue;
+  border-radius: 15px;
+  padding: 20px;
+  gap: 15px;
+}
+
+#playerName {
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(179, 148, 69);
+  color: white;
+  padding: 5px;
+}
+
+#playerName::placeholder {
+  color: white;
+}
+
+.button {
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(179, 148, 69);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 10px;
+}
+
+.button:hover {
+  background-color: rgb(117, 97, 47);
+}
+
+.hidden {
+  display: none;
+  position: relative;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 1);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 10px black;
+}
+
+.popup-content {
+  margin-bottom: 20px;
+}
+
+.popupText {
+  margin: 10px 0 10px;
+  font-size: 20px;
+}

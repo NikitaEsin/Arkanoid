@@ -1,20 +1,17 @@
 import * as PIXI from "pixi.js";
 
-// Paddle class
 export class Paddle {
   private graphics: PIXI.Graphics;
 
   constructor(private main: PIXI.Application) {
     this.graphics = new PIXI.Graphics();
     this.graphics.beginFill('black');
-    this.graphics.drawRect(0, 0, 100, 20);
+    this.graphics.drawRect(0, 0, 120, 20);
     this.graphics.endFill();
     this.graphics.x = main.screen.width / 2 - this.graphics.width / 2;
     this.graphics.y = main.screen.height - 20;
 
     main.stage.addChild(this.graphics);
-
-    // Add event listener
     window.addEventListener("keydown", this.handleKeyDown.bind(this));
   }
 
@@ -43,13 +40,11 @@ export class Paddle {
     }
   }
 
-  // Reset paddle to initial position
   public reset(): void {
     this.graphics.x = this.main.screen.width / 2 - this.graphics.width / 2;
     this.graphics.y = this.main.screen.height - 20;
   }
 
-  // Get the bounds of the paddle to check touch
   public getBounds(): PIXI.Rectangle {
     return this.graphics.getBounds();
   }

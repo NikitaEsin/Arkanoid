@@ -1,9 +1,8 @@
 import * as PIXI from "pixi.js";
 import { Paddle } from "./paddle";
-import { Brick } from "./brick";
-import { GameInterface } from "../Blox/game";
+import { Brick } from "./bricks";
+import { GameInterface } from "./game";
 
-// Ball class
 export class Ball {
   private graphics: PIXI.Graphics;
   private speedX: number = 4;
@@ -22,12 +21,10 @@ export class Ball {
     main.stage.addChild(this.graphics);
   }
 
-  // Move the ball
   public move(): void {
     this.graphics.x += this.speedX;
     this.graphics.y += this.speedY;
 
-    // Bounce x-axis
     if (
       this.graphics.x + this.graphics.width >= this.main.screen.width ||
       this.graphics.x <= 0
@@ -35,23 +32,19 @@ export class Ball {
       this.speedX = -this.speedX;
     }
 
-    // Bounce y-axis
     if (this.graphics.y <= 0) {
       this.speedY = -this.speedY;
     }
 
-    // Reset game if ball reaches floor
     if (this.graphics.y + this.graphics.height >= this.main.screen.height) {
-      this.game.reset();
+      this.game.showPopup(false);
     }
   }
 
-  // Invert Y speed
   public bounce(): void {
     this.speedY = -this.speedY;
   }
 
-  // Check if paddle is touched
   public checkPaddleTap(paddle: Paddle): boolean {
     const ballBounds = this.graphics.getBounds();
     const paddleBounds = paddle.getBounds();
@@ -62,7 +55,6 @@ export class Ball {
     );
   }
 
-  // Check brick touch
   public checkBrickTap(brick: Brick): boolean {
     const ballBounds = this.graphics.getBounds();
     const brickBounds = brick.getBounds();
@@ -74,7 +66,6 @@ export class Ball {
     );
   }
 
-  // Reset ball
   public reset(): void {
     this.graphics.x = this.main.screen.width / 2;
     this.graphics.y = this.main.screen.height - 60;

@@ -8,7 +8,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.10/pixi.min.js"></script>
     <link rel="stylesheet" href="./src/index.css" />
   </head>
-  <body>
+  <body class="body">
+    <div id="popup" class="hidden">
+      <div class="popup-content">
+        <p id="popupMessage" class="popupText"></p>
+        <p id="popupName" class="popupText"></p>
+        <p id="popupScore" class="popupText"></p>
+        <div id="scoreBoard"></div>
+        <button id="continueButton" class="button">Continue</button>
+      </div>
+    </div>
+    <div id="nameContainer" class="container">
+      <input id="playerName" type="text" placeholder="Enter your name" />
+      <button id="startGameButton" class="button">Start</button>
+    </div>
+
     <script type="module" src="./src/main.ts"></script>
+    <script type="module" src="./src/functions/startGame.ts"></script>
   </body>
 </html>
