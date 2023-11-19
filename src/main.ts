@@ -12,6 +12,7 @@ export class Game implements GameInterface {
   private score: number = 0;
   private playerName: string;
   private scores: { playerName: string; score: number }[] = [];
+  private promptShown: boolean = false;
 
   constructor(playerName: string) {
     this.main = new PIXI.Application({
@@ -101,10 +102,6 @@ export class Game implements GameInterface {
     this.ball.reset();
     this.resetBricks();
     this.score = 0;
-
-    const overlay = document.getElementById("overlay") as HTMLElement;
-    overlay.classList.add("hidden");
-    overlay.classList.remove("overlay");
   }
 
   private resetBricks(): void {
@@ -114,37 +111,54 @@ export class Game implements GameInterface {
   }
 
   public showPopup(isWinner: boolean): void {
+    this.promptShown = false; 
+  
     const popup = document.getElementById("popup") as HTMLElement;
     const popupName = document.getElementById("popupName") as HTMLElement;
     const popupScore = document.getElementById("popupScore") as HTMLElement;
     const popupMessage = document.getElementById("popupMessage") as HTMLElement;
-
+  
     popupName.textContent = `Player: ${this.playerName}`;
     popupScore.textContent = `Score: ${this.score}`;
-    popupMessage.textContent = isWinner
-      ? "Congratulations! You won!"
-      : "Game over!";
-
+    popupMessage.textContent = isWinner ? "Congratulations! You won!" : "Game over!";
+  
     popup.classList.remove("hidden");
     popup.classList.add("popup");
-
+  
     this.saveScore();
     this.main.ticker.stop();
-
-    const continueButton = document.getElementById(
-      "continueButton"
-    ) as HTMLButtonElement;
+  
+    const continueButton = document.getElementById("continueButton") as HTMLButtonElement;
     continueButton.addEventListener("click", () => {
       this.main.ticker.start();
       popup.classList.add("hidden");
       popup.classList.remove("popup");
       this.reset();
-      this.startNewGame();
+  
+      if (!this.promptShown) {
+        this.promptForNewName();
+        this.promptShown = true;
+      }
     });
-}
-
-
-  private startNewGame(): void {
-    this.playerName = "";
   }
+  
+  
+  private promptForNewName(): void {
+    const newName = prompt("Enter a new name to start a new game:");
+  
+    if (newName && newName.trim() !== "") {
+      this.playerName = newName;
+      this.startNewGame();
+    } else {
+      alert("Enter a valid name to start the game!");
+      this.promptForNewName(); 
+    }
+  }
+  
+  private startNewGame(): void {
+    this.promptShown = false; 
+    this.reset();
+  }
+  
+  
 }
