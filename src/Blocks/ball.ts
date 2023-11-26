@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js";
 import { Paddle } from "./paddle";
 import { Brick } from "./bricks";
-import { GameInterface } from "./game";
+import { GameInterface } from "../Game/game";
 
 export class Ball {
   private graphics: PIXI.Graphics;
